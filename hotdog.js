@@ -10,17 +10,24 @@ export const toppings = [
     { name: 'Slanina', price: 10, selected: false },
   ];
 
+  export const toggleTopping = (index) => {
+    toppings = document.querySelectorAll(".topping") 
+      toppings.forEach((topping) => {
+        if(topping.selected === true) {
+          topping[index].selected.classList.toggle("topping--selected")
+        } else {
+          topping[index].selected.classList.toggle(".topping")
+        }
+      })
+    }
+
+
   export const renderToppings = () => {
     const toppingsElement = document.querySelector('#toppings');
     toppingsElement.innerHTML = '';
     toppings.forEach((toppings) => {
-     let toppingClass = "selected"
 
-       if (toppings.selected === true) {
-        toppingClass += "topping--selected";       
-          } else {
-           toppingClass += "selected"
-        }
+     
   // podmínka if selected === true class = topping--selected a false = selected
     toppingsElement.innerHTML += `
         <div class="topping" class="topping--selected">
@@ -28,27 +35,12 @@ export const toppings = [
           <p>${toppings.price}</p>
         </div>
       `;
-      })
-    }
-   
-/*
- select class topping queryselectorAll a na ně addEventListener "click" bude volat toggleTopping(zmeni hodnotu)
-toggleTopping = v objektech toppings prepsat jednotlive vlastnosti selected na opacnou hodnotu. slanina false se po click zmeni na true.
-*/
+    })
+  
+  const toppingSelected = document.querySelectorAll('.topping--selected');
+  toppingSelected.forEach((topping) => {
+  topping.addEventListener("click", toggleTopping) 
+  renderToppings()  
+ })
+}
 
-export const toggleTopping = (index) => {
-  toppings = document.querySelectorAll(".topping") 
-  //querySelector, aby vybral všechny v poli
-toppings.forEach((topping) => {
-  topping.addEventListener("click", toggleTopping)
-    if(topping.selected === true ) {
-    topping[index].selected.classList.toggle("topping--selected")
-  } else {
-    topping[index].selected.classList.toggle("selected")
-  }
-		})
-renderToppings()
-  }
-
-
- 
